@@ -99,7 +99,7 @@ public class NewOrderTest extends BaseWeb {
                 .provideNewOrderCommentForCourier(comment)
                 .clickPlaceOrderButton()
                 // element click intercepted error life hack: unlock -> true
-                .clickConfirmationButton(false)
+                .clickConfirmationButton(true)
                 .getModalWindowsHeaderMessage().substring(0, 14);
         String errorMessage = testTitle + " - Ожидается сообщение: " + expectedResult;
         Assertions.assertEquals(expectedResult, actualResult, errorMessage);
