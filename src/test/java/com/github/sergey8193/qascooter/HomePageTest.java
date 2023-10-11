@@ -1,6 +1,7 @@
 package com.github.sergey8193.qascooter;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 import static com.github.sergey8193.qascooter.constants.Urls.QA_SCOOTER_MAIN_PAGE_URL;
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HomePageTest extends BaseWeb {
 
     HomePageTest() {

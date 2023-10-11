@@ -4,6 +4,7 @@ import com.github.sergey8193.qascooter.constants.Urls;
 import com.github.sergey8193.qascooter.pom.TrackPage;
 import org.junit.jupiter.api.Assertions;
 
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.TEST_BROWSER;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class TrackPageTest extends BaseWeb {
 
     TrackPageTest() { super(TEST_BROWSER, Urls.QA_SCOOTER_TRACK_PAGE_URL); }

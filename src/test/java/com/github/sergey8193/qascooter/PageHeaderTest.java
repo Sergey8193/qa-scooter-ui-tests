@@ -5,9 +5,11 @@ import com.github.sergey8193.qascooter.pom.BasePage;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.TestInstance;
 
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.TEST_BROWSER;
 
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class PageHeaderTest extends BaseWeb {
     private final static String NON_EXISTENT_ORDER_ID = "5";
 
