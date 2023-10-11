@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Assertions;
 
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.TEST_BROWSER;
 
-public class PageHeaderTest extends BaseWeb {
+class PageHeaderTest extends BaseWeb {
     private final static String NON_EXISTENT_ORDER_ID = "5";
 
-    public PageHeaderTest() {
+    PageHeaderTest() {
         super(TEST_BROWSER, Urls.QA_SCOOTER_TRACK_PAGE_URL);
     }
 
     @Test
-    public void clickYandexLogoTest() {
+    void clickYandexLogoTest() {
         String actualUrl = new BasePage(driver)
                 .clickYandexLogo()
                 .waitForPageInNewTabIsLoaded()
@@ -27,7 +27,7 @@ public class PageHeaderTest extends BaseWeb {
     }
 
     @Test
-    public void clickScooterLogoTest() {
+    void clickScooterLogoTest() {
         String actualUrl = new BasePage(driver)
                 .clickScooterLogo()
                 .getCurrentUrl();
@@ -37,7 +37,7 @@ public class PageHeaderTest extends BaseWeb {
     }
 
     @Test
-    public void clickGoButtonForNonExistentOrderTest() {
+    void clickGoButtonForNonExistentOrderTest() {
         boolean notFoundMessageIsDisplayed = new BasePage(driver)
                 .clickScooterLogo()
                 .clickOrderStatusButton()

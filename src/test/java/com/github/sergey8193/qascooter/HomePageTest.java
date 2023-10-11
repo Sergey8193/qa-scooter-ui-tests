@@ -12,9 +12,9 @@ import java.util.stream.Stream;
 import static com.github.sergey8193.qascooter.constants.Urls.QA_SCOOTER_MAIN_PAGE_URL;
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.*;
 
-public class HomePageTest extends BaseWeb {
+class HomePageTest extends BaseWeb {
 
-    public HomePageTest() {
+    HomePageTest() {
         super(TEST_BROWSER, QA_SCOOTER_MAIN_PAGE_URL);
     }
 
@@ -49,7 +49,7 @@ public class HomePageTest extends BaseWeb {
 
     @ParameterizedTest(name = "{1} -> {2}")
     @MethodSource("faqTextArgsProviderFactory")
-    public void faqTextTest(int questionIndex, String testTitle, String answerText){
+    void faqTextTest(int questionIndex, String testTitle, String answerText){
         String actualAnswer = new HomePage(driver)
                 .scrollToQuestion(questionIndex)
                 .clickQuestion(questionIndex)

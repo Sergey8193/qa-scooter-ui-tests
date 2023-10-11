@@ -13,9 +13,9 @@ import static com.github.sergey8193.qascooter.constants.Urls.QA_SCOOTER_MAIN_PAG
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.*;
 import static com.github.sergey8193.qascooter.constants.NewOrderFormInputField.*;
 
-public class NewOrderTest extends BaseWeb {
+class NewOrderTest extends BaseWeb {
 
-    public NewOrderTest() {
+    NewOrderTest() {
         super(TEST_BROWSER, QA_SCOOTER_MAIN_PAGE_URL);
     }
 
@@ -47,7 +47,7 @@ public class NewOrderTest extends BaseWeb {
 
     @ParameterizedTest(name = "{1} -> {8}")
     @MethodSource("newOrderInputFieldErrorMessagesArgsProviderFactory")
-    public void newOrderInputFieldErrorMessagesTest(String buttonType, String testTitle, String name,
+    void newOrderInputFieldErrorMessagesTest(String buttonType, String testTitle, String name,
                                                     String surname, String address, String station, String phone,
                                                     NewOrderFormInputField fieldName, String expectedResult) {
         String actualErrorMessage = new HomePage(driver)
@@ -80,7 +80,7 @@ public class NewOrderTest extends BaseWeb {
 
     @ParameterizedTest(name = "{1} -> {11}")
     @MethodSource("newOrderCreationArgsProviderFactory")
-    public void newOrderCreationTest(String buttonType, String testTitle,
+    void newOrderCreationTest(String buttonType, String testTitle,
                                      String name, String surname, String address, String station, String phone,
                                      String leaseTime, String leaseDuration, String color, String comment,
                                      String expectedResult) {

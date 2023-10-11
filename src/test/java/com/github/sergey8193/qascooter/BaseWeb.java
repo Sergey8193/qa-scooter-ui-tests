@@ -13,12 +13,12 @@ import java.util.Objects;
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.FIREFOX;
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.GOOGLE_CHROME;
 
-public class BaseWeb {
+class BaseWeb {
     protected WebDriver driver;
     private static String BROWSER = GOOGLE_CHROME;
     private static String URL = Urls.QA_SCOOTER_MAIN_PAGE_URL;
 
-    public BaseWeb(String browser, String url) {
+    BaseWeb(String browser, String url) {
         BaseWeb.BROWSER = browser;
         BaseWeb.URL = url;
     }
@@ -42,12 +42,12 @@ public class BaseWeb {
     }
 
     @BeforeEach
-    public void startTest(){
+    void startTest(){
         driver = getWebDriver(BROWSER, URL);
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         closeWebBrowser(driver);
     }
 }

@@ -12,9 +12,9 @@ import java.util.stream.Stream;
 
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.TEST_BROWSER;
 
-public class TrackPageTest extends BaseWeb {
+class TrackPageTest extends BaseWeb {
 
-    public TrackPageTest() { super(TEST_BROWSER, Urls.QA_SCOOTER_TRACK_PAGE_URL); }
+    TrackPageTest() { super(TEST_BROWSER, Urls.QA_SCOOTER_TRACK_PAGE_URL); }
 
     static Stream<Arguments> orderStatusArgsProviderFactory() {
         return Stream.of(
@@ -26,7 +26,7 @@ public class TrackPageTest extends BaseWeb {
 
     @ParameterizedTest(name = "{2} №{0} -> {1}")
     @MethodSource("orderStatusArgsProviderFactory")
-    public void orderStatusTest(String orderId, String expectedOrderStatus, String testTitle) {
+    void orderStatusTest(String orderId, String expectedOrderStatus, String testTitle) {
         String actualOrderStatus = new TrackPage(driver)
                 .provideRequiredOrderNumber(orderId)
                 .clickSeeButton()
