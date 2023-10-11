@@ -16,8 +16,6 @@ dependencies {
     testImplementation ("io.qameta.allure:allure-junit5:2.24.0")
     testImplementation ("org.junit.jupiter:junit-jupiter:5.8.1")
     implementation ("org.seleniumhq.selenium:selenium-java:4.13.0")
-    implementation ("org.slf4j:slf4j-api:2.0.9")
-    implementation ("org.slf4j:slf4j-reload4j:2.0.9")
 }
 
 test {
