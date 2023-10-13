@@ -1,4 +1,4 @@
-package com.github.sergey8193.qascooter;
+package com.github.sergey8193.qascooter.pom;
 
 import com.github.sergey8193.qascooter.constants.Urls;
 import org.junit.jupiter.api.AfterEach;

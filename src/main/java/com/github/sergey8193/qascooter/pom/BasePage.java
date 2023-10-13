@@ -39,7 +39,6 @@ public class BasePage {
         driver.switchTo().window(allTabs.get(1));
         String actualUrl = driver.getCurrentUrl();
         driver.switchTo().window(allTabs.get(0));
-        System.out.println(driver.getCurrentUrl());
         return actualUrl;
     }
 

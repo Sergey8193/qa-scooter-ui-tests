@@ -1,7 +1,7 @@
-package com.github.sergey8193.qascooter;
+package com.github.sergey8193.qascooter.pom;
 
-import com.github.sergey8193.qascooter.pom.HomePage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -14,42 +14,44 @@ import static com.github.sergey8193.qascooter.constants.Urls.QA_SCOOTER_MAIN_PAG
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.*;
 import static com.github.sergey8193.qascooter.constants.NewOrderFormInputField.*;
 
+@DisplayName("Check the new order creation form")
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
-class NewOrderTest extends BaseWeb {
+public class NewOrderTest extends BaseWeb {
 
-    NewOrderTest() {
+    public NewOrderTest() {
         super(TEST_BROWSER, QA_SCOOTER_MAIN_PAGE_URL);
     }
 
-    static Stream<Arguments> newOrderInputFieldErrorMessagesArgsProviderFactory() {
+    static Stream<Arguments> newOrderInvalidDataInputArgsProviderFactory() {
         return Stream.of(
-                Arguments.of("lower", "Проверить сообщение об ошибке ввода в поле NAME",
+                Arguments.of("lower",
                 "Name", "Кузнецов", "Москва", "Черкизовская", "+",
                 NAME, "Введите корректное имя"
                 ),
-                Arguments.of("lower", "Проверить сообщение об ошибке ввода в поле SURNAME",
+                Arguments.of("lower",
                         "Иван", "Surname", "Москва", "Черкизовская", "+791311123458888888888",
                         SURNAME, "Введите корректную фамилию"
                 ),
-                Arguments.of("lower", "Проверить сообщение об ошибке ввода в поле ADDRESS",
+                Arguments.of("lower",
                         "Иван", "Кузнецов", "Address", "Черкизовская", "+7913",
                         ADDRESS, "Введите корректный адрес"
 
                 ),
-                Arguments.of("lower", "Проверить сообщение об ошибке ввода в поле METRO_STATION",
+                Arguments.of("lower",
                         "Иван", "Кузнецов", "Москва", "Metro Station", "Telephone number",
                         SUBWAY_STATION,""
                 ),
-                Arguments.of("lower", "Проверить сообщение об ошибке ввода в поле PHONE",
+                Arguments.of("lower",
                         "Иван", "Кузнецов", "Москва", "Черкизовская", "Telephone number",
                         PHONE, "Введите корректный номер"
                 )
         );
     }
 
-    @ParameterizedTest(name = "{1} -> {8}")
-    @MethodSource("newOrderInputFieldErrorMessagesArgsProviderFactory")
-    void newOrderInputFieldErrorMessagesTest(String buttonType, String testTitle, String name,
+    @ParameterizedTest(name = "Check the error message in the field {6}")
+    @MethodSource("newOrderInvalidDataInputArgsProviderFactory")
+    @PerformanceBenchmarks
+    void newOrderInvalidDataInputShouldBeCorrectErrorMessage(String buttonType, String name,
                                                     String surname, String address, String station, String phone,
                                                     NewOrderFormInputField fieldName, String expectedResult) {
         String actualErrorMessage = new HomePage(driver)
@@ -61,18 +63,18 @@ class NewOrderTest extends BaseWeb {
                 .provideNewOrderMetroStation(station)
                 .provideNewOrderTelephone(phone)
                 .getInputErrorMessage(fieldName);
-        String errorMessage = testTitle + " " + name + " - Ожидается сообщение: " + expectedResult;
+        String errorMessage = "Field " + fieldName + " (" + name + ") - expected error message: " + expectedResult;
         Assertions.assertEquals(expectedResult, actualErrorMessage, errorMessage);
     }
 
-    static Stream<Arguments> newOrderCreationArgsProviderFactory() {
+    static Stream<Arguments> newOrderValidDataInputArgsProviderFactory() {
         return  Stream.of(
-                Arguments.of("lower", "Проверить создание нового ордера с помощью верхней кнопки 'Заказать'",
+                Arguments.of("lower",
                         "Иван", "Кузнецов", "Москва", "Черкизовская", "+79131112345",
                         "20.10.2023", "7", "black grey", "Доставка желательна до 11:00 по московскому времени",
                         "Заказ оформлен"
                 ),
-                Arguments.of("upper","Проверить создание нового ордера с помощью нижней кнопки 'Заказать'",
+                Arguments.of("upper",
                         "Мария", "Иванова", "Москва", "Сокольники", "+79652233358",
                         "24.10.2023", "5", "grey", "Предупредить за два часа до момента доставки",
                         "Заказ оформлен"
@@ -80,9 +82,10 @@ class NewOrderTest extends BaseWeb {
         );
     }
 
-    @ParameterizedTest(name = "{1} -> {11}")
-    @MethodSource("newOrderCreationArgsProviderFactory")
-    void newOrderCreationTest(String buttonType, String testTitle,
+    @ParameterizedTest(name = "Check new order creation with {0} button")
+    @MethodSource("newOrderValidDataInputArgsProviderFactory")
+    @PerformanceBenchmarks
+    void newOrderValidDataInputShouldBeSuccessOrderCreation(String buttonType,
                                      String name, String surname, String address, String station, String phone,
                                      String leaseTime, String leaseDuration, String color, String comment,
                                      String expectedResult) {
@@ -103,7 +106,7 @@ class NewOrderTest extends BaseWeb {
                 // element click intercepted error life hack: unlock -> true
                 .clickConfirmationButton(true)
                 .getModalWindowsHeaderMessage().substring(0, 14);
-        String errorMessage = testTitle + " - Ожидается сообщение: " + expectedResult;
+        String errorMessage = "New order creation" + " - expected message: " + expectedResult;
         Assertions.assertEquals(expectedResult, actualResult, errorMessage);
     }
 }
