@@ -5,12 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
 import static com.github.sergey8193.qascooter.constants.Urls.QA_SCOOTER_MAIN_PAGE_URL;
 import static com.github.sergey8193.qascooter.constants.WebBrowsers.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Check the faq answers contents")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -59,5 +61,16 @@ public class HomePageTest extends BaseWeb {
                 .getQuestionAnswer(questionIndex - 1);
         String errorText = "Question №" + questionIndex + " - expected answer: " + expectedAnswer;
         Assertions.assertEquals(expectedAnswer, actualAnswer, errorText);
+    }
+
+    @ParameterizedTest(name = "Question №{0}: answer correctness")
+    @CsvFileSource(resources = "/questions.csv")
+    @PerformanceBenchmarks
+    public void eachFaqHasCorrespondingAnswer(String question, String answer) {
+
+        boolean isDisplayed = new HomePage(driver)
+                .moveToAnswer(question, answer)
+                .answerIsDisplayed(answer);
+        assertTrue(isDisplayed);
     }
 }

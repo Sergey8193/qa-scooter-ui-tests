@@ -3,12 +3,14 @@ package com.github.sergey8193.qascooter.pom;
 import com.github.sergey8193.qascooter.constants.Durations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 
 public class BasePage {
     protected final WebDriver driver;
+    protected final Actions actions;
 
     private final By logoYandex = By.xpath(".//a[@class='Header_LogoYandex__3TSOI' and @href='//yandex.ru']");
     private final By logoScooter = By.xpath(".//a[@class='Header_LogoScooter__3lsAR' and @href='/']");
@@ -19,6 +21,7 @@ public class BasePage {
 
     public BasePage(WebDriver driver){
         this.driver = driver;
+        this.actions = new Actions(driver);
     }
 
     public BasePage clickYandexLogo() {

@@ -40,13 +40,39 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    private void moveToQuestion(String question) {
+        WebElement questionElement = driver.findElement(By.xpath(String.format("//div[@class='accordion__button' and text()='%s']", question)));
+        actions.moveToElement(questionElement);
+        actions.perform();
+        questionElement.click();
+    }
+
+    public HomePage moveToAnswer(String question, String answer) {
+        moveToQuestion(question);
+        WebElement answerElement = driver.findElement(By.xpath(String.format("//p[text()='%s']", answer)));
+        actions.moveToElement(answerElement);
+        actions.perform();
+        return this;
+    }
+
+    public boolean answerIsDisplayed(String answer) {
+        return (new WebDriverWait(driver, SECTION_TIMEOUT)
+                .until(driver ->
+                        driver.findElement(By.xpath(String.format("//p[text()='%s']", answer))).isDisplayed()
+                )
+        );
+    }
+
     public HomePage clickQuestion(int index) {
-        new WebDriverWait(driver, SECTION_TIMEOUT).until(driver -> driver.findElements(Questions).get(index).isDisplayed());
+        new WebDriverWait(driver, SECTION_TIMEOUT)
+                .until(driver -> driver.findElements(Questions).get(index).isDisplayed());
         driver.findElements(Questions).get(index).click();
         return this;
     }
 
     public String getQuestionAnswer(int index) {
-        new WebDriverWait(driver, SECTION_TIMEOUT).until(driver -> driver.findElements(Answers).get(index).isDisplayed());
-        return driver.findElements(Answers).get(index).getText(); }
+        new WebDriverWait(driver, SECTION_TIMEOUT)
+                .until(driver -> driver.findElements(Answers).get(index).isDisplayed());
+        return driver.findElements(Answers).get(index).getText();
+    }
 }
